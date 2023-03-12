@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 function Navbar() {
     const [showMobileNav, setShowMobileNav] = useState(false);
+
     const links = [
         {
             name: "Home",
@@ -13,8 +14,9 @@ function Navbar() {
             url: "/settings",
         },
     ];
+
     return (
-        <nav className="flex items-center justify-between flex-wrap bg-transparent absolute">
+        <nav className="flex items-center justify-between flex-wrap bg-transparent absolute p-8">
             <div className="flex items-center flex-shrink-0 text-white">
                 <button className="px-3 py-2 rounded hover:text-slate-400" onClick={() => setShowMobileNav(!showMobileNav)}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
