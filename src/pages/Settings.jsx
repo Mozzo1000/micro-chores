@@ -12,22 +12,30 @@ function Settings() {
         localStorage.setItem("micro_timer_breaktime_short", breakTimeShort)
     }
 
+    const resetSettings = () => {
+        setTimerTime(default_time);
+        setBreakTime(default_breaktime_long);
+        setBreakTimeShort(default_breaktime_short);
+        localStorage.setItem("micro_timer_time", default_time)
+        localStorage.setItem("micro_timer_breaktime", default_breaktime_long)
+        localStorage.setItem("micro_timer_breaktime_short", default_breaktime_short)
+    };
+
     useEffect(() => {
-        const stored_time_pref = localStorage.getItem("micro_timer_time")
-        if (stored_time_pref) {
-            setTimerTime(stored_time_pref);
-        }
+        setStateFromStorage("micro_timer_time", setTimerTime)
 
-        const stored_breaktime_pref = localStorage.getItem("micro_timer_breaktime")
-        if (stored_breaktime_pref) {
-            setBreakTime(stored_breaktime_pref);
-        }
+        setStateFromStorage("micro_timer_breaktime", setBreakTime)
 
-        const stored_breaktime_short_pref = localStorage.getItem("micro_timer_breaktime_short")
-        if (stored_breaktime_short_pref) {
-            setBreakTimeShort(stored_breaktime_short_pref);
-        }
+        setStateFromStorage("micro_timer_breaktime_short", setBreakTimeShort)
     }, [])
+
+    const setStateFromStorage = (storage, state) => {
+        console.log("retriving from storage")
+        const pref = localStorage.getItem(storage)
+        if (pref) {
+            state(pref);
+        }
+    };
 
     return (
         <>
@@ -45,7 +53,8 @@ function Settings() {
 
                 </div>
                 <div className="mb-6">
-                    <input type="submit" value="Save" className="btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" />
+                    <input type="submit" value="Save" className="btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" /><br />
+                    <input type="button" onClick={resetSettings} value="Reset settings" className="btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" />
                 </div>
             </form>
         </>
