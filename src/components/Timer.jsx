@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import done_sound from '../done.mp3'
 import QrCode from './QrCode';
-import { default_time, default_breaktime_short, default_breaktime_long } from "../Defaults";
+import { website_name, default_time, default_breaktime_short, default_breaktime_long } from "../Defaults";
 
 function Timer() {
     const [timerPlay, setTimerPlay] = useState(false);
@@ -17,7 +17,7 @@ function Timer() {
         if (timerPlay) {
             const intervalID = setInterval(() => {
                 setSecondsLeft(secondsLeft => secondsLeft - 1);
-                document.title = new Date(secondsLeft * 1000).toISOString().substring(14, 19) + " - Micro Chores"
+                document.title = new Date(secondsLeft * 1000).toISOString().substring(14, 19) + " - " + website_name
             }, 1000)
 
             if (secondsLeft === 0) {
@@ -26,7 +26,7 @@ function Timer() {
                 setTimerPlay(false);
                 setChoresDone(choresDone + 1);
                 setSecondsLeft(localStorage.getItem("micro_timer_time") ? localStorage.getItem("micro_timer_time") : default_time)
-                document.title = "Micro Chores"
+                document.title = website_name
                 if (choresDone < 4) {
                     setSecondsLeftBreak(localStorage.getItem("micro_timer_breaktime_short") ? localStorage.getItem("micro_timer_breaktime_short") : default_breaktime_short);
                     setRunShortBreak(true);
@@ -70,14 +70,14 @@ function Timer() {
         setBreakTime(true);
         const breakIntervalID = setInterval(() => {
             setSecondsLeftBreak(secondsLeftBreak => secondsLeftBreak - 1);
-            document.title = "Break! " + new Date(secondsLeftBreak * 1000).toISOString().substring(14, 19) + " - Micro Chores"
+            document.title = "Break! " + new Date(secondsLeftBreak * 1000).toISOString().substring(14, 19) + " - " + website_name
         }, 1000)
 
         if (secondsLeftBreak === 0) {
             clearInterval(breakIntervalID);
             setBreakTime(false);
             setSecondsLeftBreak(localStorage.getItem("micro_timer_breaktime") ? localStorage.getItem("micro_timer_breaktime") : default_breaktime_long)
-            document.title = "Micro Chores"
+            document.title = website_name
         }
         return breakIntervalID;
     };
