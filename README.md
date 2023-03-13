@@ -1,5 +1,5 @@
 # Micro Chores
-A customizable timer
+A customizable pomodoro-like timer
 
 ## Features
 * Customizable timer and break length
