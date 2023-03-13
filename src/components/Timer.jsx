@@ -14,10 +14,7 @@ function Timer() {
     const done_sound_effect = new Audio(done_sound);
 
     useEffect(() => {
-        console.log(timerPlay)
         if (timerPlay) {
-            console.log("PLAY")
-
             const intervalID = setInterval(() => {
                 setSecondsLeft(secondsLeft => secondsLeft - 1);
                 document.title = new Date(secondsLeft * 1000).toISOString().substring(14, 19) + " - Micro Chores"
@@ -29,7 +26,6 @@ function Timer() {
                 setTimerPlay(false);
                 setChoresDone(choresDone + 1);
                 setSecondsLeft(localStorage.getItem("micro_timer_time") ? localStorage.getItem("micro_timer_time") : default_time)
-                console.log(choresDone);
                 document.title = "Micro Chores"
                 if (choresDone < 4) {
                     setSecondsLeftBreak(localStorage.getItem("micro_timer_breaktime_short") ? localStorage.getItem("micro_timer_breaktime_short") : default_breaktime_short);
@@ -74,12 +70,10 @@ function Timer() {
         setBreakTime(true);
         const breakIntervalID = setInterval(() => {
             setSecondsLeftBreak(secondsLeftBreak => secondsLeftBreak - 1);
-            console.log("interval : " + secondsLeftBreak);
             document.title = "Break! " + new Date(secondsLeftBreak * 1000).toISOString().substring(14, 19) + " - Micro Chores"
         }, 1000)
 
         if (secondsLeftBreak === 0) {
-            console.log("0 SECONDS LEFT!")
             clearInterval(breakIntervalID);
             setBreakTime(false);
             setSecondsLeftBreak(localStorage.getItem("micro_timer_breaktime") ? localStorage.getItem("micro_timer_breaktime") : default_breaktime_long)

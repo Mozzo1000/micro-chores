@@ -3,7 +3,6 @@ import { useSearchParams } from 'react-router-dom';
 
 function BreakPage() {
     const [searchParams, setSearchParams] = useSearchParams();
-    console.log(searchParams.get("time"))
     const [time, setTime] = useState(searchParams.get("time"))
     const [breakText, setBreakText] = useState("Time for a break!");
     const [bgColor, setBgColor] = useState("bg-yellow-500")

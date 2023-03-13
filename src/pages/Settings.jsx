@@ -30,7 +30,6 @@ function Settings() {
     }, [])
 
     const setStateFromStorage = (storage, state) => {
-        console.log("retriving from storage")
         const pref = localStorage.getItem(storage)
         if (pref) {
             state(pref);
