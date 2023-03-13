@@ -8,6 +8,8 @@ function Timer() {
     const [choresDone, setChoresDone] = useState(0);
     const [breakTime, setBreakTime] = useState(false);
     const [secondsLeftBreak, setSecondsLeftBreak] = useState(localStorage.getItem("micro_timer_breaktime") ? localStorage.getItem("micro_timer_breaktime") : 5);
+    const [runShortBreak, setRunShortBreak] = useState(false);
+
     const done_sound_effect = new Audio(done_sound);
 
     useEffect(() => {
@@ -28,6 +30,10 @@ function Timer() {
                 setSecondsLeft(localStorage.getItem("micro_timer_time") ? localStorage.getItem("micro_timer_time") : 5)
                 console.log(choresDone);
                 document.title = "Micro Chores"
+                if (choresDone < 4) {
+                    setSecondsLeftBreak(localStorage.getItem("micro_timer_breaktime_short") ? localStorage.getItem("micro_timer_breaktime_short") : 2); //
+                    setRunShortBreak(true);
+                }
             }
 
             return () => {
@@ -39,27 +45,47 @@ function Timer() {
 
     useEffect(() => {
         if (choresDone == 5) {
-            console.log("BREAK TIME")
-            setBreakTime(true);
-            const breakIntervalID = setInterval(() => {
-                setSecondsLeftBreak(secondsLeftBreak => secondsLeftBreak - 1);
-                console.log(secondsLeftBreak)
-                document.title = "Break! " + new Date(secondsLeftBreak * 1000).toISOString().substring(14, 19) + " - Micro Chores"
-            }, 1000)
-
+            const interval = runBreak();
             if (secondsLeftBreak === 0) {
-                clearInterval(breakIntervalID);
-                setBreakTime(false);
                 setChoresDone(0);
-                setSecondsLeftBreak(localStorage.getItem("micro_timer_breaktime") ? localStorage.getItem("micro_timer_breaktime") : 5)
-                document.title = "Micro Chores"
             }
-
             return () => {
-                clearInterval(breakIntervalID);
+                clearInterval(interval);
             }
         }
     }, [choresDone, secondsLeftBreak])
+
+    useEffect(() => {
+        if (runShortBreak) {
+            const interval = runBreak();
+
+            if (secondsLeftBreak === 0) {
+                setRunShortBreak(false);
+            }
+
+            return () => {
+                clearInterval(interval);
+            }
+        }
+    }, [runShortBreak, secondsLeftBreak]);
+
+    const runBreak = () => {
+        setBreakTime(true);
+        const breakIntervalID = setInterval(() => {
+            setSecondsLeftBreak(secondsLeftBreak => secondsLeftBreak - 1);
+            console.log("interval : " + secondsLeftBreak);
+            document.title = "Break! " + new Date(secondsLeftBreak * 1000).toISOString().substring(14, 19) + " - Micro Chores"
+        }, 1000)
+
+        if (secondsLeftBreak === 0) {
+            console.log("0 SECONDS LEFT!")
+            clearInterval(breakIntervalID);
+            setBreakTime(false);
+            setSecondsLeftBreak(localStorage.getItem("micro_timer_breaktime") ? localStorage.getItem("micro_timer_breaktime") : 5)
+            document.title = "Micro Chores"
+        }
+        return breakIntervalID;
+    };
 
 
     return (
