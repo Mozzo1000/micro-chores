@@ -7,18 +7,9 @@ function MusicPlayer() {
 
     return (
         <div className="flex items-center justify-between flex-wrap bg-transparent absolute bottom-0">
-            <div className="flex flex-cols items-center flex-shrink-0">
-                <button className="btn bg-slate-800 px-3 py-2 rounded hover:bg-slate-600 text-white" onClick={() => setShowMusicPlayer(!showMusicPlayer)}>
-                    Show music player
-                </button>
-            </div>
             <div
-                className={`overflow-scroll p-4 bg-stone-900 md:h-5/6 bottom-0 h-screen text-white fixed z-40 ease-in-out duration-300 ${showMusicPlayer ? "translate-y-0" : "translate-y-full"}`}>
-                <div className="flex flex-col">
-                    <button className="rounded hover:text-slate-400 p-5" onClick={() => setShowMusicPlayer(false)}>
-                        Close
-                    </button>
-                </div>
+                className={`p-4 bg-stone-900 md:h-5/6 bottom-0 h-screen text-white fixed z-38 ease-in-out duration-300 ${showMusicPlayer ? "translate-y-[92%]" : "translate-y-0"}`}>
+                <p className="pb-2 font-bold" onClick={() => setShowMusicPlayer(!showMusicPlayer)}>Music player</p>
                 <Tabs.Group style="pills">
                     <Tabs.Item active={true} title="Spotify">
                         <Spotify link="https://open.spotify.com/playlist/37i9dQZF1DWWQRwui0ExPn" />
