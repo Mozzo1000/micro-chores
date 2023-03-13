@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import done_sound from '../done.mp3'
 import QrCode from './QrCode';
 import { website_name, default_time, default_breaktime_short, default_breaktime_long } from "../Defaults";
+import MusicPlayer from '../components/MusicPlayer'
 
 function Timer() {
     const [timerPlay, setTimerPlay] = useState(false);
@@ -133,6 +134,7 @@ function Timer() {
                     </>
                 }
             </div>
+            <MusicPlayer />
         </div >
     )
 }
