@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
-
+import { default_time, default_breaktime_short, default_breaktime_long } from "../Defaults";
 function Settings() {
-    const [timerTime, setTimerTime] = useState(5); //seconds
-    const [breakTime, setBreakTime] = useState(5); //seconds
-    const [breakTimeShort, setBreakTimeShort] = useState(2); //seconds
-
+    const [timerTime, setTimerTime] = useState(default_time); //seconds
+    const [breakTime, setBreakTime] = useState(default_breaktime_long); //seconds
+    const [breakTimeShort, setBreakTimeShort] = useState(default_breaktime_short); //seconds
 
     const saveTimerTimeSetting = (e) => {
         e.preventDefault();
