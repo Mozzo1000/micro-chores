@@ -6,10 +6,10 @@ function MusicPlayer() {
     const [showMusicPlayer, setShowMusicPlayer] = useState(false);
 
     return (
-        <div className="flex items-center justify-between flex-wrap bg-transparent absolute bottom-0">
+        <div className="flex items-center justify-between flex-wrap bg-transparent absolute">
             <div
-                className={`p-4 bg-stone-900 md:h-5/6 bottom-0 h-screen text-white fixed z-38 ease-in-out duration-300 ${showMusicPlayer ? "translate-y-0" : "translate-y-[92%]"}`}>
-                <p className="pb-2 font-bold" onClick={() => setShowMusicPlayer(!showMusicPlayer)}>Music player</p>
+                className={`p-4 pt-3 bg-stone-900 h-4/6 bottom-0 text-white fixed z-38 ease-in-out duration-300 ${showMusicPlayer ? "translate-y-0" : "translate-y-[92%]"}`}>
+                <p className="pb-4 font-bold" onClick={() => setShowMusicPlayer(!showMusicPlayer)}>Music player</p>
                 <Tabs.Group style="pills">
                     <Tabs.Item active={true} title="Spotify">
                         <Spotify link="https://open.spotify.com/playlist/37i9dQZF1DWWQRwui0ExPn" />
