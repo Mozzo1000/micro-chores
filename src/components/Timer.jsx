@@ -6,10 +6,10 @@ import MusicPlayer from '../components/MusicPlayer'
 
 function Timer() {
     const [timerPlay, setTimerPlay] = useState(false);
-    const [secondsLeft, setSecondsLeft] = useState(localStorage.getItem("micro_timer_time") ? localStorage.getItem("micro_timer_time") : default_time);
+    const [secondsLeft, setSecondsLeft] = useState(localStorage.getItem("micro_timer_time") ? (localStorage.getItem("micro_timer_time") * 60) : (default_time * 60));
     const [choresDone, setChoresDone] = useState(0);
     const [breakTime, setBreakTime] = useState(false);
-    const [secondsLeftBreak, setSecondsLeftBreak] = useState(localStorage.getItem("micro_timer_breaktime") ? localStorage.getItem("micro_timer_breaktime") : default_breaktime_short);
+    const [secondsLeftBreak, setSecondsLeftBreak] = useState(localStorage.getItem("micro_timer_breaktime") ? (localStorage.getItem("micro_timer_breaktime")*60) : (default_breaktime_short * 60));
     const [runShortBreak, setRunShortBreak] = useState(false);
 
     const done_sound_effect = new Audio(done_sound);
@@ -26,10 +26,10 @@ function Timer() {
                 done_sound_effect.play();
                 setTimerPlay(false);
                 setChoresDone(choresDone + 1);
-                setSecondsLeft(localStorage.getItem("micro_timer_time") ? localStorage.getItem("micro_timer_time") : default_time)
+                setSecondsLeft(localStorage.getItem("micro_timer_time") ? (localStorage.getItem("micro_timer_time") * 60) : (default_time * 60))
                 document.title = website_name
                 if (choresDone < 4) {
-                    setSecondsLeftBreak(localStorage.getItem("micro_timer_breaktime_short") ? localStorage.getItem("micro_timer_breaktime_short") : default_breaktime_short);
+                    setSecondsLeftBreak(localStorage.getItem("micro_timer_breaktime_short") ? (localStorage.getItem("micro_timer_breaktime_short") * 60) : (default_breaktime_short * 60));
                     setRunShortBreak(true);
                 }
             }
@@ -77,7 +77,7 @@ function Timer() {
         if (secondsLeftBreak === 0) {
             clearInterval(breakIntervalID);
             setBreakTime(false);
-            setSecondsLeftBreak(localStorage.getItem("micro_timer_breaktime") ? localStorage.getItem("micro_timer_breaktime") : default_breaktime_long)
+            setSecondsLeftBreak(localStorage.getItem("micro_timer_breaktime") ? (localStorage.getItem("micro_timer_breaktime") * 60) : (default_breaktime_long * 60))
             document.title = website_name
         }
         return breakIntervalID;
